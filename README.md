@@ -34,3 +34,25 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+Project Overview
+This is a Next.js application using the App Router structure, styled with Tailwind CSS. It implements a simple authentication flow (login, logout, JWT-based session), a protected admin dashboard, and middleware for route protection.
+
+file structure
+src/
+  app/
+    api/
+      auth/
+        login.js        # API route for login (JWT authentication)
+        logout.js       # API route for logout (clears cookies)
+        refresh.js      # API route for refreshing JWT
+    dashboard/
+      page.js           # Admin dashboard page (protected)
+    login/
+      page.js           # Login page (public)
+    middleware.js       # Middleware for route protection
+    layout.tsx          # Root layout for all pages
+    page.tsx            # Root page (redirects to login)
+  tailwind.config.js    # Tailwind CSS configuration
+README.md               # Project documentation

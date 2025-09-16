@@ -1,3 +1,9 @@
+// Next.js middleware for route protection.
+// Checks for valid authToken cookie on protected routes (/dashboard, /admin).
+// Redirects unauthenticated users to /login.
+// Allows public access to /login and auth API routes.
+// Uses JWT verification.
+
 import { NextResponse } from 'next/server';
 import { verify } from 'jsonwebtoken';
 

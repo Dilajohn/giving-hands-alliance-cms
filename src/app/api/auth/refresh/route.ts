@@ -1,3 +1,8 @@
+// API route to refresh JWT token.
+// Accepts POST requests.
+// Verifies refreshToken cookie, issues new authToken cookie.
+// Returns 401 if refresh token is missing or invalid.
+
 import { verify, sign } from 'jsonwebtoken';
 import cookie from 'cookie';
 

@@ -1,3 +1,8 @@
+// Protected admin dashboard page.
+// Displays summary cards (KPIs) and a table of recent donations.
+// Includes a logout button that calls /api/auth/logout and redirects to /login.
+// Only accessible if authenticated (see middleware.js).
+
 import { useRouter } from 'next/router';
 
 export default function AdminDashboard() {

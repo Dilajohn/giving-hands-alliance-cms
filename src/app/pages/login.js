@@ -1,3 +1,9 @@
+// Login page component.
+// Collects username and password, submits to /api/auth/login.
+// On success, redirects to /dashboard.
+// Shows error messages on failure.
+// Styled with Tailwind CSS and uses custom colors from tailwind.config.js.
+
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 

@@ -4,6 +4,11 @@
 //This endpoint will validate the username/password against stored data.
 //On success, issue a JWT or session cookie.
 //On failure, return an error message.
+// API route for user login.
+// Accepts POST requests with username and password.
+// If credentials are valid, issues JWT and refresh token cookies.
+// On failure, returns 401 Unauthorized.
+// Uses 'jsonwebtoken' and 'cookie' libraries.
 
 import { sign } from 'jsonwebtoken';
 import cookie from 'cookie';

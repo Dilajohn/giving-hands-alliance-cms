@@ -1,3 +1,10 @@
+// Root layout for all pages.
+// Applies Tailwind base styles and sets up the main HTML structure.
+// Customizes background and text colors using Tailwind config.
+// API route for user logout.
+// Accepts POST requests.
+// Clears authToken and refreshToken cookies by setting them to expire.
+
 import cookie from 'cookie';
 
 export default function handler(req, res) {
