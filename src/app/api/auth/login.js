@@ -10,12 +10,11 @@ import cookie from 'cookie';
 
 export default function handler(req, res) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method Not Allowed' });
+    return res.status(405).end();
   }
 
   const { username, password } = req.body;
 
-  // Dummy validation - replace with your DB/user service
   if (username === 'admin' && password === 'password123') {
     const token = sign({ username }, process.env.JWT_SECRET || 'secret', { expiresIn: '1h' });
     const refreshToken = sign({ username }, process.env.JWT_SECRET || 'secret', { expiresIn: '7d' });
@@ -31,15 +30,13 @@ export default function handler(req, res) {
       cookie.serialize('refreshToken', refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        maxAge: 604800, // 7 days
+        maxAge: 604800,
         sameSite: 'strict',
         path: '/',
       }),
     ]);
-
-    return res.status(200).json({ message: 'Login successful' });
+    res.status(200).json({ message: 'Login successful' });
   } else {
-    return res.status(401).json({ message: 'Invalid credentials' });
+    res.status(401).json({ message: 'Invalid credentials' });
   }
 }
-
