@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+'use client';
+
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 
 type AuthContextType = {
   userRole: string | null;
