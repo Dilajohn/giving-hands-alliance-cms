@@ -1,8 +1,7 @@
-// src/components/Sidebar.tsx
 import Link from 'next/link';
 
 type SidebarProps = {
-  role: string;
+  role: string | null;
 };
 
 export default function Sidebar({ role }: SidebarProps) {
@@ -19,15 +18,15 @@ export default function Sidebar({ role }: SidebarProps) {
     donor: [{ name: 'Dashboard', href: '/donor' }],
   };
 
-  const links = menuItems[role] || [];
+  const links = role ? menuItems[role] || [] : [];
 
   return (
-    <nav className="w-64 border-r border-gha-gray p-4">
+    <nav className="w-64 border-r border-gha-gray p-4 bg-gha-dark">
       <ul>
-        {links.map((item) => (
-          <li key={item.href} className="mb-3">
-            <Link href={item.href}>
-              <a className="text-gha-white hover:text-gha-orange transition">{item.name}</a>
+        {links.map(({ href, name }) => (
+          <li key={href} className="mb-3">
+            <Link href={href}>
+              <a className="text-gha-white hover:text-gha-orange transition">{name}</a>
             </Link>
           </li>
         ))}

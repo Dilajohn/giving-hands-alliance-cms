@@ -1,19 +1,16 @@
-import './globals.css'; // Import Tailwind base styles
+import './globals.css';
+import { AuthProvider } from '@/context/AuthContext';
 
 export const metadata = {
   title: 'Giving Hands Alliance CMS',
   description: 'Charity Management System',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="bg-gha-dark text-gha-white min-h-screen" suppressHydrationWarning>
-        {children}
+    <html lang="en">
+      <body className="bg-gha-dark text-gha-white min-h-screen">
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
