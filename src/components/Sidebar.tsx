@@ -1,0 +1,37 @@
+// src/components/Sidebar.tsx
+import Link from 'next/link';
+
+type SidebarProps = {
+  role: string;
+};
+
+export default function Sidebar({ role }: SidebarProps) {
+  const menuItems = {
+    admin: [
+      { name: 'Dashboard', href: '/admin' },
+      { name: 'Users', href: '/admin/users' },
+      { name: 'Reports', href: '/admin/reports' },
+    ],
+    executive: [
+      { name: 'Dashboard', href: '/executive' },
+      { name: 'Reports', href: '/executive/reports' },
+    ],
+    donor: [{ name: 'Dashboard', href: '/donor' }],
+  };
+
+  const links = menuItems[role] || [];
+
+  return (
+    <nav className="w-64 border-r border-gha-gray p-4">
+      <ul>
+        {links.map((item) => (
+          <li key={item.href} className="mb-3">
+            <Link href={item.href}>
+              <a className="text-gha-white hover:text-gha-orange transition">{item.name}</a>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}

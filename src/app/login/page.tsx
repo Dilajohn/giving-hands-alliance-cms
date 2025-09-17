@@ -27,8 +27,14 @@ export default function Login() {
       const data = await res.json();
 
       if (res.ok) {
-        // No token storage here; cookie is http-only and set by server
-        router.push('/dashboard');
+        /**
+         * MOCK role assignment
+         * Replace `'admin'` with actual role from backend response 'data' if available.
+         */
+        const role = 'admin'; // For example: 'admin', 'executive', 'donor', etc.
+
+        // Redirect to role-specific dashboard
+        router.push(`/${role}`);
       } else {
         setError(data.message || 'Login failed');
       }

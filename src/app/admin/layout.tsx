@@ -1,13 +1,15 @@
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import Sidebar from '@/components/Sidebar';
+import Navbar from '@/components/Navbar';
+
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <section>
-      {/* Include a shared UI here e.g. a header or sidebar */}
-      <nav>Admin Nav</nav>
-      {children}
-    </section>
+    <div className="flex h-screen bg-gha-dark text-gha-white">
+      <Sidebar role="admin" />
+      <div className="flex flex-col flex-grow">
+        <Navbar />
+        <main className="p-6 overflow-y-auto flex-grow">{children}</main>
+      </div>
+    </div>
   );
 }
+
