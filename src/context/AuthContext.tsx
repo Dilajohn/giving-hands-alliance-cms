@@ -10,9 +10,8 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userRole, setUserRole] = useState<string | null>(null);
 
-  // Optional: Initialize from localStorage or API on mount
   useEffect(() => {
-    // Example: set default role 'admin' for testing
+    // Mock initial role for demonstration
     setUserRole('admin');
   }, []);
 
