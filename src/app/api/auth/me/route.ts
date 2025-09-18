@@ -1,18 +1,10 @@
 import { NextResponse } from 'next/server';
 import { verify } from 'jsonwebtoken';
+import { cookies } from 'next/headers';
 
-export async function GET(request: Request) {
-  const cookieHeader = request.headers.get('cookie') || '';
-  
-  // Parse the cookie header to extract authToken
-  const cookies = Object.fromEntries(
-    cookieHeader.split('; ').map(cookieStr => {
-      const [name, ...rest] = cookieStr.split('=');
-      return [name, rest.join('=')];
-    })
-  );
-
-  const token = cookies['authToken'];
+export async function GET() {
+  const cookieStore = cookies(); // async cookie store accessor
+  const token = cookieStore.get('authToken')?.value;
 
   if (!token) {
     return NextResponse.json({ role: null }, { status: 401 });

@@ -30,7 +30,6 @@ export default function Sidebar({ role }: SidebarProps) {
     donor: [{ name: 'Dashboard', href: '/donor' }],
   };
 
-  // Role can be null so use conditional access and default to empty array
   const links = role ? menuItems[role] || [] : [];
 
   return (
@@ -38,8 +37,8 @@ export default function Sidebar({ role }: SidebarProps) {
       <ul>
         {links.map(({ href, name }) => (
           <li key={href} className="mb-3">
-            <Link href={href}>
-              <a className="text-gha-white hover:text-gha-orange transition">{name}</a>
+            <Link href={href} className="text-gha-white hover:text-gha-orange transition">
+              {name}
             </Link>
           </li>
         ))}
