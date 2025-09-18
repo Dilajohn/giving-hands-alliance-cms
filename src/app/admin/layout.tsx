@@ -1,13 +1,24 @@
 'use client';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Sidebar from '@/components/Sidebar';
 import Navbar from '@/components/Navbar';
 import { useAuth } from '@/context/AuthContext';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const { userRole } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (userRole !== 'admin') {
+      router.push('/login');  // Redirect to login if not admin
+    }
+  }, [userRole, router]);
 
   if (userRole !== 'admin') {
-    return <div className="p-10 text-center text-gha-orange">Unauthorized</div>;
+    // Optionally render null or a loading spinner while redirecting
+    return null;
   }
 
   return (
@@ -20,3 +31,4 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     </div>
   );
 }
+
