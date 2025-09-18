@@ -5,14 +5,19 @@
 // Accepts POST requests.
 // Clears authToken and refreshToken cookies by setting them to expire.
 
+import { NextResponse } from 'next/server';
 import cookie from 'cookie';
 
-export default function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).end();
-  }
-
-  res.setHeader('Set-Cookie', cookie.serialize('authToken', '', {
+export async function POST() {
+  const response = NextResponse.json({ message: 'Logged out' }, { status: 200 });
+  response.headers.append('Set-Cookie', cookie.serialize('authToken', '', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    expires: new Date(0),
+    sameSite: 'strict',
+    path: '/',
+  }));
+  response.headers.append('Set-Cookie', cookie.serialize('refreshToken', '', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     expires: new Date(0),
@@ -20,13 +25,6 @@ export default function handler(req, res) {
     path: '/',
   }));
 
-  res.setHeader('Set-Cookie', cookie.serialize('refreshToken', '', {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    expires: new Date(0),
-    sameSite: 'strict',
-    path: '/',
-  }));
-
-  res.status(200).json({ message: 'Logged out' });
+  return response;
 }
+

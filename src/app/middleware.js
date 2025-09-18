@@ -7,16 +7,14 @@
 import { NextResponse } from 'next/server';
 import { verify } from 'jsonwebtoken';
 
-export function middleware(req) {
+export function middleware(req: Request & { cookies: any }) {
   const token = req.cookies.get('authToken');
 
-  // Allow public routes (including login)
   const publicPaths = ['/login', '/api/auth/login', '/api/auth/logout', '/api/auth/refresh'];
-  if (publicPaths.some((path) => req.nextUrl.pathname.startsWith(path))) {
+  if (publicPaths.some(path => req.nextUrl.pathname.startsWith(path))) {
     return NextResponse.next();
   }
 
-  // Protect /dashboard and /admin routes
   if (req.nextUrl.pathname.startsWith('/dashboard') || req.nextUrl.pathname.startsWith('/admin')) {
     if (!token) {
       return NextResponse.redirect(new URL('/login', req.url));
@@ -25,7 +23,7 @@ export function middleware(req) {
     try {
       verify(token, process.env.JWT_SECRET || 'secret');
       return NextResponse.next();
-    } catch (err) {
+    } catch {
       return NextResponse.redirect(new URL('/login', req.url));
     }
   }

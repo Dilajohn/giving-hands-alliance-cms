@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 
 type SidebarProps = {
@@ -34,3 +35,4 @@ export default function Sidebar({ role }: SidebarProps) {
     </nav>
   );
 }
+

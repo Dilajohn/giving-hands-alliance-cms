@@ -13,8 +13,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userRole, setUserRole] = useState<string | null>(null);
 
   useEffect(() => {
-    // Mock initial role for demonstration
-    setUserRole('admin');
+    // Optionally load user role from cookies, localStorage, or API
+    setUserRole(null);
   }, []);
 
   return (

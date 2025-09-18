@@ -27,13 +27,7 @@ export default function Login() {
       const data = await res.json();
 
       if (res.ok) {
-        /**
-         * MOCK role assignment
-         * Replace `'admin'` with actual role from backend response 'data' if available.
-         */
-        const role = 'admin'; // For example: 'admin', 'executive', 'donor', etc.
-
-        // Redirect to role-specific dashboard
+        const role = data.role; // Get role from response
         router.push(`/${role}`);
       } else {
         setError(data.message || 'Login failed');
@@ -46,7 +40,6 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gha-dark">
       <div className="w-full max-w-3xl flex shadow-lg rounded-lg overflow-hidden bg-gha-dark">
-        {/* Left Side: Logo and Project Name */}
         <div className="w-1/2 flex flex-col items-center justify-center py-10 px-6 border-r border-gha-gray">
           <div className="mb-6">
             <svg width="48" height="48" viewBox="0 0 48 48" aria-label="Logo" role="img">
@@ -60,7 +53,6 @@ export default function Login() {
           <span className="text-gha-gray mt-1 text-base text-center">Charity Management System</span>
         </div>
 
-        {/* Right Side: Login Form */}
         <div className="w-1/2 flex items-center justify-center py-10 px-6">
           <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4">
             <h2 className="text-gha-white text-xl font-medium mb-1">Welcome</h2>
