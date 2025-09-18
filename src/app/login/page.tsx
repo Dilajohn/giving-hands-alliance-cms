@@ -8,9 +8,11 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useAuth } from '@/context/AuthContext';
 
 export default function Login() {
   const router = useRouter();
+  const { setUserRole } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -28,7 +30,8 @@ export default function Login() {
 
       if (res.ok) {
         const role = data.role; // Get role from response
-        router.push(`/${role}`);
+        setUserRole(role);       // Set role in context
+        router.push(`/${role}`); // Redirect based on role (e.g. /admin)
       } else {
         setError(data.message || 'Login failed');
       }

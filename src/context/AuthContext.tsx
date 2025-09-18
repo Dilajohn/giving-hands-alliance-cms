@@ -13,9 +13,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userRole, setUserRole] = useState<string | null>(null);
 
   useEffect(() => {
-    // Optionally load user role from cookies, localStorage, or API
-    setUserRole(null);
-  }, []);
+  async function fetchUserRole() {
+    const res = await fetch('/api/auth/me');
+    if (res.ok) {
+      const data = await res.json();
+      setUserRole(data.role);
+    } else {
+      setUserRole(null);
+    }
+  }
+  fetchUserRole();
+}, []);
+
 
   return (
      <AuthContext.Provider value={{ userRole, setUserRole }}>
