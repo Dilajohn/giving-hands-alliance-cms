@@ -1,6 +1,6 @@
+// src/app/layout.tsx
+import AuthWrapper from './AuthWrapper';
 import './globals.css';
-import './globals.css';
-import { AuthProvider } from '@/context/AuthContext';
 import { ReactNode } from 'react';
 
 export const metadata = {
@@ -12,9 +12,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="bg-gha-dark text-gha-white min-h-screen">
-        <AuthProvider>{children}</AuthProvider>
+        <AuthWrapper>{children}</AuthWrapper>
       </body>
     </html>
   );
 }
-

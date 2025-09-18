@@ -18,9 +18,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ userRole, setUserRole }}>
-      {children}
-    </AuthContext.Provider>
+     <AuthContext.Provider value={{ userRole, setUserRole }}>
+       {children}
+     </AuthContext.Provider>
   );
 };
 

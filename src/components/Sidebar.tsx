@@ -1,12 +1,23 @@
 'use client';
 import Link from 'next/link';
 
+type MenuItem = {
+  name: string;
+  href: string;
+};
+
+type MenuItems = {
+  admin: MenuItem[];
+  executive: MenuItem[];
+  donor: MenuItem[];
+};
+
 type SidebarProps = {
-  role: string | null;
+  role: keyof MenuItems | null;
 };
 
 export default function Sidebar({ role }: SidebarProps) {
-  const menuItems = {
+  const menuItems: MenuItems = {
     admin: [
       { name: 'Dashboard', href: '/admin' },
       { name: 'Users', href: '/admin/users' },
@@ -19,6 +30,7 @@ export default function Sidebar({ role }: SidebarProps) {
     donor: [{ name: 'Dashboard', href: '/donor' }],
   };
 
+  // Role can be null so use conditional access and default to empty array
   const links = role ? menuItems[role] || [] : [];
 
   return (
