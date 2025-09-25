@@ -1,7 +1,16 @@
 'use client';
 
-export function Button({ children, className, variant = 'default', ...props }) {
-  const baseClass = 'inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none';
+import { ReactNode, ButtonHTMLAttributes } from 'react';
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode;
+  className?: string;
+  variant?: 'default' | 'outline';
+}
+
+export function Button({ children, className = '', variant = 'default', ...props }: ButtonProps) {
+  const baseClass =
+    'inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none';
 
   let variantClass = '';
 
@@ -19,3 +28,4 @@ export function Button({ children, className, variant = 'default', ...props }) {
     </button>
   );
 }
+

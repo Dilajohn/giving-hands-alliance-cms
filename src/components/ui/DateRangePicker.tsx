@@ -4,22 +4,29 @@ import * as React from 'react';
 import { format } from 'date-fns';
 import { CalendarIcon } from '@radix-ui/react-icons';
 
-import { Button } from '@/components/ui/button';
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from '@/components/ui/popover';
+import { Button } from './button';
+import { Popover, PopoverTrigger, PopoverContent } from './popover';
 
-import { Calendar } from '@/components/ui/calendar';
+import { Calendar } from './calendar';
 
-export function DateRangePicker({ dateRange, setDateRange, className }) {
+interface DateRange {
+  start: Date | null;
+  end: Date | null;
+}
+
+interface DateRangePickerProps {
+  dateRange: DateRange;
+  setDateRange: (range: DateRange) => void;
+  className?: string;
+}
+
+export function DateRangePicker({ dateRange, setDateRange, className = '' }: DateRangePickerProps) {
   const [open, setOpen] = React.useState(false);
 
   const formattedStart = dateRange?.start ? format(dateRange.start, 'MMM dd, yyyy') : '';
   const formattedEnd = dateRange?.end ? format(dateRange.end, 'MMM dd, yyyy') : '';
 
-  function onSelectDate(date) {
+  function onSelectDate(date: Date) {
     if (!dateRange?.start || (dateRange.start && dateRange.end)) {
       setDateRange({ start: date, end: null });
     } else if (date < dateRange.start) {
@@ -31,17 +38,13 @@ export function DateRangePicker({ dateRange, setDateRange, className }) {
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+      <PopoverTrigger>
         <Button
           variant="outline"
           className={`w-[240px] justify-start text-left font-normal bg-gha-dark/70 text-gha-white border border-gha-gray hover:border-gha-orange hover:text-gha-orange ${className}`}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          <span>
-            {formattedStart && formattedEnd
-              ? `${formattedStart} - ${formattedEnd}`
-              : 'Select Date Range'}
-          </span>
+          <span>{formattedStart && formattedEnd ? `${formattedStart} - ${formattedEnd}` : 'Select Date Range'}</span>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0 bg-gha-dark/80 backdrop-blur-md border border-gha-orange rounded-md shadow-lg">

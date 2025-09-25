@@ -1,16 +1,34 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-function getDaysInMonth(month, year) {
+function getDaysInMonth(month: number, year: number): number {
   return new Date(year, month + 1, 0).getDate();
 }
 
-function range(size, startAt = 0) {
+function range(size: number, startAt = 0): number[] {
   return [...Array(size).keys()].map(i => i + startAt);
 }
 
-export function Calendar({ mode, selected, onSelect, initialFocus, fromDate, toDate, className }) {
+interface CalendarProps {
+  mode: 'single' | 'range';
+  selected?: Date | Date[];
+  onSelect: (date: Date) => void;
+  initialFocus?: boolean;
+  fromDate?: Date;
+  toDate?: Date;
+  className?: string;
+}
+
+export function Calendar({
+  mode,
+  selected,
+  onSelect,
+  initialFocus,
+  fromDate = new Date(1970, 0, 1),
+  toDate = new Date(2100, 11, 31),
+  className = '',
+}: CalendarProps) {
   const today = new Date();
   const [month, setMonth] = useState(today.getMonth());
   const [year, setYear] = useState(today.getFullYear());
@@ -20,9 +38,9 @@ export function Calendar({ mode, selected, onSelect, initialFocus, fromDate, toD
 
   const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-  const isSelected = date => {
+  const isSelected = (date: number): boolean => {
     if (!selected) return false;
-    if (mode === 'range' && selected.length === 2) {
+    if (mode === 'range' && Array.isArray(selected) && selected.length === 2) {
       return date >= selected[0].getDate() && date <= selected[1].getDate();
     }
     if (selected instanceof Date) {
@@ -31,7 +49,7 @@ export function Calendar({ mode, selected, onSelect, initialFocus, fromDate, toD
     return false;
   };
 
-  function selectDate(day) {
+  function selectDate(day: number) {
     const date = new Date(year, month, day);
     if (date < fromDate || date > toDate) return;
     onSelect(date);
@@ -73,9 +91,7 @@ export function Calendar({ mode, selected, onSelect, initialFocus, fromDate, toD
             type="button"
             key={day}
             onClick={() => selectDate(day)}
-            className={`rounded-md py-1 hover:bg-gha-orange hover:text-gha-dark ${
-              isSelected(day) ? 'bg-gha-orange text-gha-dark' : ''
-            }`}
+            className={`rounded-md py-1 hover:bg-gha-orange hover:text-gha-dark ${isSelected(day) ? 'bg-gha-orange text-gha-dark' : ''}`}
           >
             {day}
           </button>
