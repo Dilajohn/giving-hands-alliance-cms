@@ -3,8 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/card';
-
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import {
   LineChart,
   Line,
@@ -18,7 +17,7 @@ import {
   BarChart,
   Bar,
 } from 'recharts';
-import { DateRangePicker } from '@/components/ui/DateRangePicker';
+import { DateRangePicker } from '../../components/ui/DateRangePicker';
 import { FaDonate, FaProjectDiagram, FaUsers } from 'react-icons/fa';
 
 const COLORS = ['#1E40AF', '#10B981', '#FBBF24'];
@@ -58,7 +57,7 @@ const recentDonations = [
 export default function AdminDashboard() {
   const router = useRouter();
   const { setUserRole } = useAuth();
-  const [dateRange, setDateRange] = useState({ start: null, end: null });
+  const [dateRange, setDateRange] = useState<{ start: Date | null; end: Date | null }>({ start: null, end: null });
 
   const handleLogout = async () => {
     await fetch('/api/auth/logout', { method: 'POST' });
@@ -72,15 +71,8 @@ export default function AdminDashboard() {
       <header className="flex justify-between items-center mb-6 border-b border-gha-gray pb-4">
         <h1 className="text-2xl font-bold text-gha-orange">Admin Dashboard</h1>
         <div className="flex items-center space-x-4">
-          <DateRangePicker
-            dateRange={dateRange}
-            setDateRange={setDateRange}
-            className="bg-gha-dark/70 backdrop-blur-sm rounded px-4 py-2"
-          />
-          <button
-            onClick={handleLogout}
-            className="bg-gha-orange px-4 py-2 rounded hover:bg-orange-700 transition focus:ring-4 focus:ring-orange-400"
-          >
+          <DateRangePicker dateRange={dateRange} setDateRange={setDateRange} className="bg-gha-dark/70 backdrop-blur-sm rounded px-4 py-2" />
+          <button onClick={handleLogout} className="bg-gha-orange px-4 py-2 rounded hover:bg-orange-700 transition focus:ring-4 focus:ring-orange-400">
             Logout
           </button>
         </div>
@@ -108,10 +100,7 @@ export default function AdminDashboard() {
         {/* Analytics Section */}
         <main className="flex-grow grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Donations Over Time */}
-          <Card
-            className="bg-gha-dark/40 backdrop-blur-md border border-gha-orange shadow-lg"
-            aria-label="Donation trends over time"
-          >
+          <Card className="bg-gha-dark/40 backdrop-blur-md border border-gha-orange shadow-lg" aria-label="Donation trends over time">
             <CardHeader>
               <CardTitle className="text-gha-orange font-semibold">Donations Over Time</CardTitle>
             </CardHeader>
@@ -148,10 +137,7 @@ export default function AdminDashboard() {
           </Card>
 
           {/* Donations by Project */}
-          <Card
-            className="bg-gha-dark/40 backdrop-blur-md border border-gha-orange shadow-lg"
-            aria-label="Donations by project bar chart"
-          >
+          <Card className="bg-gha-dark/40 backdrop-blur-md border border-gha-orange shadow-lg" aria-label="Donations by project bar chart">
             <CardHeader>
               <CardTitle className="text-gha-orange font-semibold">Donations by Project</CardTitle>
             </CardHeader>

@@ -24,7 +24,6 @@ export function Calendar({
   mode,
   selected,
   onSelect,
-  initialFocus,
   fromDate = new Date(1970, 0, 1),
   toDate = new Date(2100, 11, 31),
   className = '',
