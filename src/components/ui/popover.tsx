@@ -13,15 +13,13 @@ export function Popover({ children, open, onOpenChange }: PopoverProps) {
     <div>
       {React.Children.map(children, child => {
         if (React.isValidElement(child)) {
-          const childProps = child.type as React.ComponentType<any>;
-          if (childProps.propTypes && (childProps.propTypes.open || childProps.propTypes.onOpenChange)) {
-            return React.cloneElement(child, { open, onOpenChange });
-          } else {
-            return child;
-          }
-        } else {
-          return child;
+          // Cast child to a known type that allows extra props open and onOpenChange
+          const typedChild = child as React.ReactElement<
+            Record<string, unknown> & Partial<Pick<PopoverProps, 'open' | 'onOpenChange'>>
+          >;
+          return React.cloneElement(typedChild, { open, onOpenChange });
         }
+        return child;
       })}
     </div>
   );
@@ -36,7 +34,7 @@ interface PopoverTriggerProps {
 }
 
 export function PopoverTrigger({ children }: PopoverTriggerProps) {
-  const child = React.Children.only(children);
+  const child = React.Children.only(children) as React.ReactElement<PopoverTriggerProps['children']['props']>;
 
   return React.cloneElement(child, {
     onClick: (e: React.MouseEvent) => {
