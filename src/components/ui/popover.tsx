@@ -13,7 +13,7 @@ export function Popover({ children, open, onOpenChange }: PopoverProps) {
     <div>
       {React.Children.map(children, child => {
         if (React.isValidElement(child)) {
-          const childProps = child.type as any;
+          const childProps = child.type as React.ComponentType<any>;
           if (childProps.propTypes && (childProps.propTypes.open || childProps.propTypes.onOpenChange)) {
             return React.cloneElement(child, { open, onOpenChange });
           } else {
